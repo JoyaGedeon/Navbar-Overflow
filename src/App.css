@@ -1,0 +1,30 @@
+#root {
+  text-align: center;
+}
+
+.navbar-toggled {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:  red;
+  /* rgba(16, 48, 190, 0.57); */
+  box-shadow: 0 0 1em #00000033;
+  animation: slideIn 1.1s ease-in-out;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0
+  }
+  50% {
+    opacity: 0
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1
+  }
+}
