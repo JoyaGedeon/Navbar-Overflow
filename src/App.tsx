@@ -1,28 +1,33 @@
 import ToggleProvider, { ToggleContext } from './contexts/navbarContext'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import './App.css'
 
 const Navbar = () => {
     const { isToggle, setIsToggle } = useContext(ToggleContext);
 
-    const openNavbar = () => {
-        setIsToggle(!isToggle)
+    //useEffect to check if the navbar is toggled or not and add the class to body overflow none
+    useEffect(() => {
+        let bodyEl = document.body as HTMLElement;
         let block = document.querySelector('.navbar-block') as HTMLElement;
+        // console.log(bodyEl)
+        console.log(isToggle);
         if (isToggle) {
-            block.classList.add('navbar-toggled')
-            console.log('toggled')
+            bodyEl.style.overflow = 'hidden';
+            block.classList.add('navbar-toggled');
+            console.log('toggled overflow', isToggle);
         } else {
-            block.classList.remove('navbar-toggled')
-            console.log('not toggled')
+            bodyEl.style.overflow = 'auto';
+            block.classList.remove('navbar-toggled');
+            console.log('not toggled not overflow', isToggle);
         }
+    }, [isToggle])
+
+    const openNavbar = () => {
+        setIsToggle(!isToggle);
     }
 
     return (
-        <div
-        //  style={
-            // isToggle ? {overflowY: 'hidden'} : {overflowY: 'auto'}
-            // }
-            >
+        <div>
             <div style={{
                 backgroundColor: 'rgb(16, 48, 190)',
                 height: '10vh',
@@ -114,22 +119,16 @@ const OtherComponent = () => {
 }
 
 const App = () => {
-    const { isToggle, setIsToggle } = useContext(ToggleContext);
 
     return (
         <ToggleProvider>
-            <div style={
-                    isToggle ? {overflowY: 'hidden'} : {overflowY: 'auto'}
-                    && 
-                    {
-                        // overflow: 'hidden',
-                        height: 'auto',
-                        width: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-evenly'
-                    }
-                }>
+            <div style={{
+                    height: 'auto',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-evenly'
+                }}>
                 <Navbar />
                 <OtherComponent />
                 <OtherComponent />
